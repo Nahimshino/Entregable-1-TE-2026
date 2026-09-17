@@ -146,6 +146,8 @@ Luego crea un Pull Request hacia `main`. La rama `main` debe mantenerse protegid
 
 ## Despliegue en Render
 
+Backend publicado: `https://entregable-1-te-2026.onrender.com`
+
 1. Crea un Web Service conectado al repositorio de GitHub.
 2. Selecciona `main` como rama.
 3. Configura `server` como `Root Directory`.
@@ -164,6 +166,8 @@ FRONTEND_URL=https://tu-proyecto.vercel.app
 Render genera una URL similar a `https://tu-servicio.onrender.com`. Comprueba el servidor en `/health` antes de conectar el frontend.
 
 ## Despliegue en Vercel
+
+Frontend publicado: `https://entregable-1-te-2026-kcrnuq4og-nahimu.vercel.app`
 
 1. Importa el mismo repositorio de GitHub.
 2. Selecciona `client` como `Root Directory`.
