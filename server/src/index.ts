@@ -1,7 +1,12 @@
 import 'dotenv/config';
 import cors from 'cors';
-import express from 'express';
+import express, { type Request, type Response } from 'express';
 import { supabase } from './supabaseClient.js';
+
+interface HabitUpdate {
+	name?: string;
+	completed?: boolean;
+}
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -12,11 +17,11 @@ const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
-app.get('/health', (_request, response) => {
+app.get('/health', (_request: Request, response: Response) => {
 	response.json({ status: 'ok' });
 });
 
-app.get('/api/habits', async (_request, response) => {
+app.get('/api/habits', async (_request: Request, response: Response) => {
 	const { data, error } = await supabase
 		.from('habits')
 		.select('*')
@@ -30,7 +35,7 @@ app.get('/api/habits', async (_request, response) => {
 	response.json(data);
 });
 
-app.post('/api/habits', async (request, response) => {
+app.post('/api/habits', async (request: Request, response: Response) => {
 	const name = typeof request.body?.name === 'string' ? request.body.name.trim() : '';
 
 	if (!name) {
@@ -52,12 +57,11 @@ app.post('/api/habits', async (request, response) => {
 	response.status(201).json(data);
 });
 
-app.put('/api/habits/:id', async (request, response) => {
-	const { id } = request.params;
-	const body = request.body || {};
-	const updates = {};
+app.put('/api/habits/:id', async (request: Request<{ id: string }>, response: Response) => {
+	const body = request.body as HabitUpdate | undefined;
+	const updates: HabitUpdate = {};
 
-	if (typeof body.name === 'string') {
+	if (typeof body?.name === 'string') {
 		const name = body.name.trim();
 		if (!name) {
 			response.status(400).json({ message: 'El nombre del hábito no puede estar vacío.' });
@@ -66,7 +70,7 @@ app.put('/api/habits/:id', async (request, response) => {
 		updates.name = name;
 	}
 
-	if (typeof body.completed === 'boolean') {
+	if (typeof body?.completed === 'boolean') {
 		updates.completed = body.completed;
 	}
 
@@ -78,7 +82,7 @@ app.put('/api/habits/:id', async (request, response) => {
 	const { data, error } = await supabase
 		.from('habits')
 		.update(updates)
-		.eq('id', id)
+		.eq('id', request.params.id)
 		.select()
 		.single();
 
@@ -90,7 +94,7 @@ app.put('/api/habits/:id', async (request, response) => {
 	response.json(data);
 });
 
-app.delete('/api/habits/:id', async (request, response) => {
+app.delete('/api/habits/:id', async (request: Request<{ id: string }>, response: Response) => {
 	const { error } = await supabase.from('habits').delete().eq('id', request.params.id);
 
 	if (error) {

@@ -8,6 +8,7 @@ export default function App() {
 	const [habitos, setHabitos] = useState<Habito[]>([]);
 	const [cargando, setCargando] = useState(true);
 	const [error, setError] = useState('');
+	const [exito, setExito] = useState('');
 
 	useEffect(() => {
 		obtenerHabitos()
@@ -18,9 +19,11 @@ export default function App() {
 
 	async function agregarHabito(name: string) {
 		setError('');
+		setExito('');
 		try {
 			const nuevoHabito = await crearHabito({ name });
 			setHabitos((actuales) => [nuevoHabito, ...actuales]);
+			setExito('Hábito creado correctamente.');
 		} catch (error) {
 			const mensaje = axiosErrorMessage(error, 'No se pudo crear el hábito.');
 			setError(mensaje);
@@ -30,9 +33,11 @@ export default function App() {
 
 	async function alternarHabito(habito: Habito) {
 		setError('');
+		setExito('');
 		try {
 			const actualizado = await cambiarEstadoHabito(habito.id, !habito.completed);
 			setHabitos((actuales) => actuales.map((item) => item.id === actualizado.id ? actualizado : item));
+			setExito(actualizado.completed ? 'Hábito completado.' : 'Hábito marcado como pendiente.');
 		} catch {
 			setError('No se pudo actualizar el hábito.');
 		}
@@ -40,9 +45,11 @@ export default function App() {
 
 	async function borrarHabito(id: string) {
 		setError('');
+		setExito('');
 		try {
 			await eliminarHabito(id);
 			setHabitos((actuales) => actuales.filter((habito) => habito.id !== id));
+			setExito('Hábito eliminado correctamente.');
 		} catch {
 			setError('No se pudo eliminar el hábito.');
 		}
@@ -67,6 +74,7 @@ export default function App() {
 				</div>
 				<HabitosForm onCrear={agregarHabito} />
 				{error && <p className="error-message">{error}</p>}
+				{exito && <p className="success-message" role="status">{exito}</p>}
 				{cargando ? <p className="empty-state">Cargando hábitos...</p> : <ListaHabitos habitos={habitos} onCambiarEstado={alternarHabito} onEliminar={borrarHabito} />}
 			</section>
 		</main>

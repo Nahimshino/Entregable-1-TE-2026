@@ -37,6 +37,7 @@ input[type='text'], .form-row input { min-width: 0; flex: 1; padding: 14px 16px;
 .delete-button { border: 0; color: #aa5b4e; background: transparent; font-size: 0.84rem; font-weight: 700; }
 .empty-state { margin: 24px 0 0; color: #7b8580; text-align: center; }
 .error-message { margin: 18px 0 0; padding: 12px 14px; border-left: 3px solid #aa5b4e; color: #8f4d43; background: #faebe7; }
+.success-message { margin: 18px 0 0; padding: 12px 14px; border-left: 3px solid #2f5d50; color: #2f5d50; background: #e7f1e5; }
 @media (max-width: 600px) {
   .app-shell { width: min(100% - 28px, 920px); padding-top: 40px; }
   .panel { padding: 20px; }
