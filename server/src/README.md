@@ -29,6 +29,12 @@ npm install
 npm run dev
 ```
 
+En produccion Render ejecuta `npm install` y `npm start` desde `server/`. El servidor escucha el puerto entregado por `PORT` y expone `/health` para comprobar que esta activo.
+
+## Supabase y RLS
+
+La tabla requerida es `public.habits` con las columnas `id`, `name`, `completed` y `created_at`. Como este proyecto usa la publishable key sin autenticacion, RLS debe tener politicas de lectura, insercion, actualizacion y eliminacion para `anon` y `authenticated`. El SQL completo esta en el README de la raiz.
+
 ## Rutas
 
 - `GET /health`
