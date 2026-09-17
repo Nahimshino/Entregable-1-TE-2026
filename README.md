@@ -52,7 +52,7 @@ Configura `server/.env` con los valores de Supabase:
 ```env
 PORT=3000
 SUPABASE_URL=https://tu-proyecto.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+SUPABASE_PUBLISHABLE_KEY=tu-publishable-key
 FRONTEND_URL=http://localhost:5173
 ```
 
@@ -85,7 +85,31 @@ create table public.habits (
 );
 ```
 
-La clave `SUPABASE_SERVICE_ROLE_KEY` es secreta: solo debe estar en `server/.env` y en las variables privadas de Render.
+La `SUPABASE_PUBLISHABLE_KEY` puede usarse en el backend y no reemplaza las políticas RLS.
+
+Esta versión utiliza `SUPABASE_PUBLISHABLE_KEY`. Como RLS está activo y la aplicación todavía no tiene autenticación, crea las políticas públicas siguientes para que la API pueda operar:
+
+```sql
+alter table public.habits enable row level security;
+
+create policy "public read habits"
+on public.habits for select to anon, authenticated
+using (true);
+
+create policy "public create habits"
+on public.habits for insert to anon, authenticated
+with check (true);
+
+create policy "public update habits"
+on public.habits for update to anon, authenticated
+using (true) with check (true);
+
+create policy "public delete habits"
+on public.habits for delete to anon, authenticated
+using (true);
+```
+
+Estas políticas permiten que cualquier visitante lea y modifique hábitos. Para una versión segura, habría que añadir autenticación y asociar cada hábito a un usuario.
 
 ## Endpoints
 

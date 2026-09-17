@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabasePublishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
 
-if (!supabaseUrl || !supabaseServiceRoleKey) {
-	throw new Error('Faltan SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY en las variables de entorno.');
+if (!supabaseUrl || !supabasePublishableKey) {
+	throw new Error('Faltan SUPABASE_URL y SUPABASE_PUBLISHABLE_KEY en las variables de entorno.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+export const supabase = createClient(supabaseUrl, supabasePublishableKey);

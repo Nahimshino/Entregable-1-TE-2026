@@ -14,11 +14,11 @@ Crea `server/.env` a partir de `server/.env.example`:
 ```env
 PORT=3000
 SUPABASE_URL=https://tu-proyecto.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+SUPABASE_PUBLISHABLE_KEY=tu-publishable-key
 FRONTEND_URL=http://localhost:5173
 ```
 
-No publiques `SUPABASE_SERVICE_ROLE_KEY` en el frontend ni en GitHub.
+La publishable key no debe confundirse con una clave secreta; las políticas RLS siguen controlando el acceso.
 
 ## Ejecucion
 
