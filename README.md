@@ -5,7 +5,7 @@ Aplicacion web full-stack para registrar, completar y eliminar habitos personale
 ## Stack
 
 - React + TypeScript + Vite
-- Express + Node.js
+- Express + Node.js + TypeScript
 - Supabase PostgreSQL
 - Render para el backend
 - Vercel para el frontend
@@ -151,7 +151,7 @@ Backend publicado: `https://entregable-1-te-2026.onrender.com`
 1. Crea un Web Service conectado al repositorio de GitHub.
 2. Selecciona `main` como rama.
 3. Configura `server` como `Root Directory`.
-4. Usa `npm install` como `Build Command`.
+4. Usa `npm run build` como `Build Command`.
 5. Usa `npm start` como `Start Command`.
 6. Selecciona el plan Free.
 7. Agrega estas variables en `Environment`:
@@ -202,4 +202,4 @@ npm run build
 
 El frontend se despliega en Vercel con `client` como directorio raiz y `npm run build` como comando de compilacion.
 
-El backend se despliega en Render con `server` como directorio raiz, `npm install` como build command y `npm start` como start command.
+El backend se despliega en Render con `server` como directorio raiz, `npm run build` como build command y `npm start` como start command.

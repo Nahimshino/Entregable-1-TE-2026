@@ -4,8 +4,8 @@ Este directorio contiene la API Express que conecta el frontend con Supabase.
 
 ## Archivos
 
-- `index.js`: servidor HTTP, CORS y endpoints CRUD.
-- `supabaseClient.js`: cliente de Supabase usando variables de entorno.
+- `index.ts`: servidor HTTP, CORS y endpoints CRUD.
+- `supabaseClient.ts`: cliente de Supabase usando variables de entorno.
 
 ## Variables necesarias
 
@@ -29,7 +29,7 @@ npm install
 npm run dev
 ```
 
-En produccion Render ejecuta `npm install` y `npm start` desde `server/`. El servidor escucha el puerto entregado por `PORT` y expone `/health` para comprobar que esta activo.
+En produccion Render ejecuta `npm run build` y `npm start` desde `server/`. El servidor escucha el puerto entregado por `PORT` y expone `/health` para comprobar que esta activo.
 
 ## Supabase y RLS
 
